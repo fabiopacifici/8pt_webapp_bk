@@ -30,6 +30,6 @@ Todos:
 - [x] create an show route to show the single book (with reviews attached)
 - [x] create an express Router for the /api/books and api/books/:id
 - [x] create a controller
-- [] create server errror middleware and not found
+- [x] create server errror middleware and not found
 
 ## FrontEnd
