@@ -31,5 +31,6 @@ Todos:
 - [x] create an express Router for the /api/books and api/books/:id
 - [x] create a controller
 - [x] create server errror middleware and not found
+- [x] open the cors policy
 
 ## FrontEnd

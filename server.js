@@ -5,6 +5,10 @@ const connection = require('./database/connection');
 const booksRouter = require('./routes/books');
 const notFound = require('./middleware/notFound');
 const serverError = require('./middleware/serverError');
+const cors = require('cors');
+
+// Enable CORS for all routes
+app.use(cors({ origin: 'http://localhost:5173'}));
 
 // we need the static assets for the (bonus) image upload feature
 app.use(express.static('public'));
