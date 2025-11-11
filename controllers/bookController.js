@@ -49,7 +49,29 @@ function show(req, res) {
 }
 
 
+function store(req, res){
+
+  // request body has only text fields
+  console.log(req.file, req.body);
+  const cover_image = 'http://localhost:3000/uploads/' + req.file.originalname
+  const {title, author, abstract} = req.body;
+  console.log(title, author, abstract, cover_image);
+
+  const sql = 'INSERT INTO books (title, author, abstract, cover_image) VALUES (?, ?, ?, ?)';
+  
+  connection.query(sql, [title, author, abstract, cover_image], (err, results)=>{
+    if(err) return res.status(500).json({ error: err.message});
+    console.log(results);
+    res.status(201).json({ message: 'Book created', id: results.insertId });
+  })
+
+
+}
+
+
+
 module.exports = {
   index,
-  show
+  show,
+  store
 }
