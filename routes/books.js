@@ -10,4 +10,8 @@ Router.get('/:id', bookController.show)
 
 Router.post('/', upload.single('cover_image') ,bookController.store)
 
+
+// Store Review
+Router.post('/:id/reviews', bookController.storeReviews)
+
 module.exports = Router;

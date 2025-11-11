@@ -49,18 +49,18 @@ function show(req, res) {
 }
 
 
-function store(req, res){
+function store(req, res) {
 
   // request body has only text fields
   console.log(req.file, req.body);
   const cover_image = 'http://localhost:3000/uploads/' + req.file.originalname
-  const {title, author, abstract} = req.body;
+  const { title, author, abstract } = req.body;
   console.log(title, author, abstract, cover_image);
 
   const sql = 'INSERT INTO books (title, author, abstract, cover_image) VALUES (?, ?, ?, ?)';
-  
-  connection.query(sql, [title, author, abstract, cover_image], (err, results)=>{
-    if(err) return res.status(500).json({ error: err.message});
+
+  connection.query(sql, [title, author, abstract, cover_image], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
     console.log(results);
     res.status(201).json({ message: 'Book created', id: results.insertId });
   })
@@ -70,8 +70,27 @@ function store(req, res){
 
 
 
+function storeReviews(req, res) {
+  //console.log(req.body, req.params);
+
+  // get the book id
+  const book_id = Number(req.params.id)
+  const { name, review, vote } = req.body
+
+  console.log(name, review, vote, book_id);
+
+  const sql = 'INSERT INTO reviews (book_id, name, review, vote) VALUES (?, ?, ?, ?)'
+  connection.query(sql, [book_id, name, review, vote], (err, results) => {
+    if (err) return res.status(500).json({ message: err.message })
+    console.log(results);
+    res.json({message: 'Review added successfully'})
+  })
+}
+
+
 module.exports = {
   index,
   show,
-  store
+  store,
+  storeReviews
 }
