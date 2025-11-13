@@ -6,7 +6,8 @@ const connection = require('../database/connection');
  */
 function index(req, res) {
 
-  const sql = 'SELECT * FROM books';
+  // SELECT books.*, AVG(reviews.vote) as vote_avg FROM books LEFT JOIN reviews ON reviews.book_id = books.id GROUP BY books.id
+  const sql = 'SELECT books.*, AVG(reviews.vote) as vote_avg FROM books LEFT JOIN reviews ON reviews.book_id = books.id GROUP BY books.id';
 
   connection.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -23,7 +24,8 @@ function index(req, res) {
  */
 function show(req, res) {
 
-  const sql = 'SELECT * FROM books WHERE id = ?';
+  // SELECT books.*, AVG(reviews.vote) as vote_avg FROM books LEFT JOIN reviews ON reviews.book_id = books.id WHERE books.id = 2
+  const sql = 'SELECT books.*, AVG(reviews.vote) as vote_avg FROM books LEFT JOIN reviews ON reviews.book_id = books.id WHERE books.id = ?';
   const reviewsSql = 'SELECT * FROM reviews WHERE book_id = ?';
 
   const bookId = Number(req.params.id);
@@ -75,6 +77,8 @@ function storeReviews(req, res) {
 
   // get the book id
   const book_id = Number(req.params.id)
+  console.log(req.body);
+  
   const { name, review, vote } = req.body
 
   console.log(name, review, vote, book_id);
