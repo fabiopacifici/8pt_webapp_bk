@@ -55,7 +55,7 @@ function store(req, res) {
 
   // request body has only text fields
   console.log(req.file, req.body);
-  const cover_image = 'http://localhost:3000/uploads/' + req.file.originalname
+  const cover_image = `${process.env.server_address}:${process.env.port}/uploads/` + req.file.originalname
   const { title, author, abstract } = req.body;
   console.log(title, author, abstract, cover_image);
 
